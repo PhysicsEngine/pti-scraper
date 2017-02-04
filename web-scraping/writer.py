@@ -27,17 +27,14 @@ class Writer(object):
 
     def _writeToDatabase(self, content):
         ret = None
-        try:
-            with self.conn.cursor() as cur:
-                cur.execute('SET NAMES utf8;')
-                cur.execute('SET CHARACTER SET utf8;')
-                cur.execute('SET character_set_connection=utf8;')
-                sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
-                r = cur.execute(sql, (content.pub_date, content.url, content.author_id, "dummy title"))
-                ret = cur.lastrowid
-                self.conn.commit()
-        finally:
-            self.conn.close()
+        with self.conn.cursor() as cur:
+            cur.execute('SET NAMES utf8;')
+            cur.execute('SET CHARACTER SET utf8;')
+            cur.execute('SET character_set_connection=utf8;')
+            sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
+            r = cur.execute(sql, (content.pub_date, content.url, content.author_id, "dummy title"))
+            ret = cur.lastrowid
+            self.conn.commit()
 
         return ret
 
