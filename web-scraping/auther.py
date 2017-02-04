@@ -4,11 +4,10 @@ from db_uploader import DbUploader
 class Author(object):
   def __init__(self):
 
-  def __init__(self, conn, name, rate = 0):
+  def __init__(self, conn):
     self.name = name
-    self.rate = rate
     self.db_uploader = DbUploader(conn)
-    self.author_id = get_authoer_id()
+    self.author_id = get_author_id()
 
   def get_name(self):
     return self.name
@@ -19,8 +18,9 @@ class Author(object):
   def get_author_id(self):
     return self.author_id
 
-  def get_authoer_id(self):
-    auther_id = None
-    try:
-
-      
+  def get_author_id(self):
+    author_id = self.db_uploader.select_articles_authors(name)
+    if author_id == None:
+      return self.db_uploader.insert_articles_authors(name)
+   
+    return author_id
