@@ -22,12 +22,7 @@ class ReutersJpColummsScraper(object):
     url = self.get_target_url(page)
     return self.scraping.get_sorp(url, ScrapingLib.TYPE_REQUESTS)
 
-  def get_url_list(self, page):
-    href_list = self.get_sorp(page).find_all("a", href=self.RE_ARTICLE)
-    return map(lambda x: x.get("href"), href_list)
-
-
 ## test
 if __name__ == '__main__':
   scraper = ReutersJpColummsScraper(ReutersJpColummsScraper.LOG_PATH)
-  print scraper.get_url_list(2)
+  print scraper.get_sorp(2)
