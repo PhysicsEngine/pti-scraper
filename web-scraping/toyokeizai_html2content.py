@@ -12,11 +12,18 @@ from datetime import datetime
 class ToyokeizaiHtml2Content(object):
   def parse(self, full_url, soup):
       return Content(
-              "1",
+              self.get_author(soup),
               "\n".join(map(lambda x: x.get_text(), soup.find_all("p"))),
               full_url,
               self.parse_time(self.get_revision_date(soup).split("+")[0]),
               soup.title.string)
+
+  def get_author(self, soup):
+    for tag in soup.find_all("meta"):
+      if tag.get("name", None) == "cXenseParse:toy-articleauthor":
+        print tag.get("content", None)
+        return tag.get("content", None)
+    return "unknown"
 
   def get_revision_date(self, soup):
     for tag in soup.find_all("meta"):
@@ -38,9 +45,10 @@ class ToyokeizaiHtml2Content(object):
 ## test
 if __name__ == '__main__':
   html2content = ToyokeizaiHtml2Content()
-  print html2content.parse_time("2017-01-30T06:00:00")
-
   scraper = ScrapingLib()
   url = "http://toyokeizai.net/articles/-/155794?page=0"
   soup = scraper.get_sorp(url)
-  print html2content.parse(url, soup)
+  content = html2content.parse(url, soup)
+  print content.author_id
+  print content.text
+  print content.pub_date
