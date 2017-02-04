@@ -12,13 +12,12 @@ class Writer(object):
 
     SAVE_PATH = "/var/pti/scrape/{0}.txt"
 
-    def __init__(self):
+    def __init__(self, conn):
         user = os.environ.get('PTI_USER')
         password = os.environ.get('PTI_PASSWORD')
         host = os.environ.get('PTI_HOST')
         database = os.environ.get('PTI_DB')
-        conn = pymysql.connect(user=user, password=password, host=host, database=database)
-        conn.encoding = "utf-8"
+        self.conn = conn
         self.uploader = DbUploader(conn)
 
     def write_articles_file(self, content):

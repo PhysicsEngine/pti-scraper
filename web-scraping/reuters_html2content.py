@@ -8,11 +8,16 @@ import requests
 import os
 import pytz
 from datetime import datetime
+from author import Author
 
 class ReutersHtml2Content(object):
+    def __init__(self, conn):
+        self.conn = conn
+
     def parse(self, full_url, soup):
+        author = Author(self.get_author_name(soup), self.conn)
         return Content(
-                self.get_author_name(soup),
+                author.get_author_id(),
                 self.get_article_text(soup),
                 full_url,
                 self.parse_time(self.get_revision_date(soup)),
@@ -27,7 +32,11 @@ class ReutersHtml2Content(object):
     def get_article_text(self, soup):
         paragraphs = []
         article_text = soup.find("span", id="articleText")
-        return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
+        try:
+          return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
+        except AttributeError:
+          print article_text
+          return article_text
 
     def get_revision_date(self, soup):
         for tag in soup.find_all("meta"):
