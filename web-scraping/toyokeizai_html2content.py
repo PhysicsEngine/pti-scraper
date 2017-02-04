@@ -26,7 +26,6 @@ class ToyokeizaiHtml2Content(object):
   def get_author_name(self, soup):
     for tag in soup.find_all("meta"):
       if tag.get("name", None) == "cXenseParse:toy-articleauthor":
-        print tag.get("content", None)
         return tag.get("content", None)
     return "unknown"
 
