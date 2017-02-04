@@ -20,7 +20,7 @@ class ReutersTheWireScraper(object):
   
   def get_url_list(self):
     href_list = self.get_sorp().find_all("a", href=self.RE_ARTICLE)
-    url_list = map(lambda x: x.get("href"), href_list)
+    url_list = list(map(lambda x: x.get("href"), href_list))
     if(len(url_list) > 20):
       del url_list[0:19]
     return url_list
@@ -37,5 +37,5 @@ if __name__ == '__main__':
   scraper = ReutersTheWireScraper(ReutersTheWireScraper.LOG_PATH)
   scraper.load_more_content()
   scraper.load_more_content()
-  print scraper.get_url_list()
-  print len(scraper.get_url_list())
+  #print scraper.get_url_list()
+  #print len(scraper.get_url_list())
