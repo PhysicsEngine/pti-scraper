@@ -23,4 +23,4 @@ if __name__ == '__main__':
           writer.write_articles_file(content)
       else:
           print("content registration error")
-      scraper.load_more_content() 
+    scraper.load_more_content() 
