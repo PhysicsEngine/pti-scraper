@@ -24,7 +24,7 @@ class Writer(object):
 
         self._writeToFile(id, content)
 
-    def _writeToDatabase(content):
+    def _writeToDatabase(self, content):
         ret = None
         try:
             with conn.cursor() as cur:
