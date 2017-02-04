@@ -37,5 +37,5 @@ class Writer(object):
     def replace_author(self, content):
         author_id = self.uploader.select_articles_authors(content.author_id)
         if author_id is None:
-            author_id = self.uploader.insert_articles_articles(content.author_id)
+            author_id = self.uploader.insert_articles_authors(content.author_id)
         content.author_id = author_id
