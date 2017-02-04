@@ -19,5 +19,8 @@ if __name__ == '__main__':
       full_url = ReutersJpColummsScraper.get_full_url(url)
       soup = scraper.get_soup(full_url)
       content = html2content.parse(full_url, soup)
-      writer.write_articles_file(content)
-      page += 1
+      if content:
+          writer.write_articles_file(content)
+      else:
+          print("content registration error")
+      page += 1 
