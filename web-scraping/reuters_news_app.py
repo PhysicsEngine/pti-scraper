@@ -12,7 +12,7 @@ if __name__ == '__main__':
     conn = DbConnect()
     scraper = ReutersTheWireScraper(ReutersTheWireScraper.LOG_PATH)
     lib = ScrapingLib()
-    html2content = ReutersHtml2Content()
+    html2content = ReutersHtml2Content(conn.get())
     writer = Writer(conn.get())
 
     while True:
@@ -20,6 +20,6 @@ if __name__ == '__main__':
             full_url = ReutersTheWireScraper.get_full_url(url)
             soup = lib.get_sorp(full_url)
             content = html2content.parse(full_url, soup)
-            writer.replace_author(content)
+            #writer.replace_author(content)
             writer.write_articles_file(content)
             scraper.load_more_content()
