@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import hashlib
 
 class DbUploader(object):
   def __init__(self, conn):
@@ -20,7 +21,8 @@ class DbUploader(object):
 
   def select_articles_authors(self, name):
     with self.conn.cursor() as cur:
-      sql = "SELECT id FROM articles_authors where name = '{0}'".format(name.encode('utf-8'))
+      name_hash = self.name_hash(name)
+      sql = "SELECT id FROM articles_authors where name_hash = '{0}'".format(name_hash)
       print sql
       cur.execute(sql)
       return cur.fetchone()
@@ -31,12 +33,11 @@ class DbUploader(object):
       cur.execute('SET NAMES utf8;')
       cur.execute('SET CHARACTER SET utf8;')
       cur.execute('SET character_set_connection=utf8;')
-      sql = "INSERT INTO articles_authors(name, rate) VALUES (%s, %s)"
-      cur.execute(sql, (name, 0))
+      sql = "INSERT INTO articles_authors(name, name_hash, rate) VALUES (%s, %s, %s)"
+      cur.execute(sql, (name, self.name_hash(name), 0))
       author_id = cur.lastrowid
       self.conn.commit()
-  
     return author_id
 
-
-    
+  def name_hash(self, name):
+    return int(hashlib.md5(name.encode('utf-8')).hexdigest(), 16)
