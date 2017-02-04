@@ -16,7 +16,6 @@ if __name__ == '__main__':
             full_url = ReutersTheWireScraper.get_full_url(url)
             soup = lib.get_sorp(full_url)
             content = html2content.parse(full_url, soup)
-            print content.text
             writer.write(content)
 
         # TODO: まずは最新のみ.
