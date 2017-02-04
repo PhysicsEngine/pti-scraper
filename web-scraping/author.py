@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from db_uploader import DbUploader
 class Author(object):
-  def __init__(self):
 
   def __init__(self, conn):
     self.name = name
