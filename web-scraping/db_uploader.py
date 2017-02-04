@@ -13,7 +13,7 @@ class DbUploader(object):
       cur.execute('SET CHARACTER SET utf8;')
       cur.execute('SET character_set_connection=utf8;')
       sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
-      cur.execute(sql, (content.pub_date, content.url, content.author_id, content.text))
+      cur.execute(sql, (content.pub_date, content.url, content.author_id, content.title))
       articles_id = cur.lastrowid
       self.conn.commit()
   
