@@ -11,7 +11,7 @@ from db_connect import DbConnect
 if __name__ == '__main__':
   conn = DbConnect()
   scraper = ReutersJpColummsScraper(ReutersJpColummsScraper.LOG_PATH)
-  html2content = ReutersHtml2Content()
+  html2content = ReutersHtml2Content(conn.get())
   writer = Writer(conn.get())
   page = 1
   while True:
