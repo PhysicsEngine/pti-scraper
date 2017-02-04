@@ -6,7 +6,7 @@ class Author(object):
   def __init__(self, conn):
     self.name = name
     self.db_uploader = DbUploader(conn)
-    self.author_id = _set_author_id()
+    self.author_id = self._set_author_id()
 
   def get_name(self):
     return self.name
