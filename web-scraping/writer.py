@@ -42,4 +42,4 @@ class Writer(object):
     def _writeToFile(self, id, content):
         path = self.SAVE_PATH.format(id)
         with io.FileIO(path, "w") as file:
-            file.write(content.text)
+            file.write(content.text.encode('utf-8'))
