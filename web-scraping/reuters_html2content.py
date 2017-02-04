@@ -3,12 +3,18 @@
 from scraping_lib import ScrapingLib
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from content import Content
 import requests
 import os
 
 class ReutersHtml2Content(object):
-    def parse(self, soup):
-        return "\n".join(map(lambda x: x.text, soup.find_all("p")))
+    def parse(self, full_url, soup):
+        return Content(
+                "1",
+                "\n".join(map(lambda x: x.text, soup.find_all("p"))),
+                full_url,
+                "2017-02-01 12:34:56",
+                soup.title.string)
 
 ## test
 if __name__ == '__main__':

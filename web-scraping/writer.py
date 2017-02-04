@@ -28,8 +28,8 @@ class Writer(object):
         ret = None
         try:
             with self.conn.cursor() as cur:
-                sql = "INSERT INTO articles_articles(pub_date, url, author_id) VALUES (%s, %s, %s)"
-                r = cur.execute(sql, (content.pub_date, content.url, content.author_id))
+                sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
+                r = cur.execute(sql, (content.pub_date, content.url, content.author_id, content.title))
                 ret = cursor.lastrowid
                 self.conn.commit()
         finally:

@@ -13,8 +13,9 @@ if __name__ == '__main__':
 
     while True:
         for url in scraper.get_url_list():
-            soup = lib.get_sorp(ReutersTheWireScraper.get_full_url(url))
-            content = html2content.parse(soup)
+            full_url = ReutersTheWireScraper.get_full_url(url)
+            soup = lib.get_sorp(full_url)
+            content = html2content.parse(full_url, soup)
             writer.write(content)
 
         # TODO: まずは最新のみ.
