@@ -20,7 +20,7 @@ class DbUploader(object):
 
   def select_articles_authors(self, name):
     with self.conn.cursor() as cur:
-      sql = "SELECT id FROM articles_authors where name = '{0}'".format(name)
+      sql = "SELECT id FROM articles_authors where name = '{0}'".format(name.encode('utf-8'))
       cur.execute(sql)
       return cur.fetchone()
 
