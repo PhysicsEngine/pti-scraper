@@ -15,6 +15,8 @@ class Writer(object):
         password = os.environ.get('PTI_PASSWORD')
         host = os.environ.get('PTI_HOST')
         database = os.environ.get('PTI_DB')
+        # djb.set_character_set('utf8')
+
         self.conn = pymysql.connect(user=user, password=password, host=host, database=database)
 
     def write(self, content):
@@ -28,6 +30,9 @@ class Writer(object):
         ret = None
         try:
             with self.conn.cursor() as cur:
+                cur.execute('SET NAMES utf8;')
+                cur.execute('SET CHARACTER SET utf8;')
+                cur.execute('SET character_set_connection=utf8;')
                 sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
                 r = cur.execute(sql, (content.pub_date, content.url, content.author_id, content.title))
                 ret = cursor.lastrowid
