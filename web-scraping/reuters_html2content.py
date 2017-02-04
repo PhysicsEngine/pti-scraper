@@ -15,7 +15,7 @@ class ReutersHtml2Content(object):
         self.conn = conn
 
     def parse(self, full_url, soup):
-        author = Author(self.get_author_name(soup, self.conn))
+        author = Author(self.get_author_name(soup), self.conn)
         return Content(
                 author.get_author_id(),
                 self.get_article_text(soup),
