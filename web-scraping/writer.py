@@ -27,13 +27,13 @@ class Writer(object):
     def _writeToDatabase(self, content):
         ret = None
         try:
-            with conn.cursor() as cur:
+            with self.conn.cursor() as cur:
                 sql = "INSERT INTO articles_articles(pub_date, url, author_id) VALUES (%s, %s, %s)"
                 r = cur.execute(sql, (content.pub_date, content.url, content.author_id))
                 ret = cursor.lastrowid
-                conn.commit()
+                self.conn.commit()
         finally:
-            conn.close()
+            self.conn.close()
 
         return ret
 
