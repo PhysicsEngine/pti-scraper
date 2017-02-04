@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 import time
 
@@ -28,6 +29,21 @@ class ScrapingLib(object):
     res = requests.get(url)
     return res.text.encode(res.encoding)
 
+  def clickByClassName(self, class_name):
+    try:
+      elem = self.driver.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, class_name)))
+      ActionChains(self.driver).move_to_element(elem).click(elem).perform()
+    except TimeoutException:
+      raise ScrapingLibException("{0} class is not found".format(class_name))
+
+  def get(self, url):
+    self.driver.get(url)
+
+  def get_latest_sorp(self):
+    source = self.driver.page_source
+    markup =  source.encode("utf-8")
+    return self.create_soup(markup)
+
   def get_markup_by_driver(self, url):
     print url
     self.driver.get(url)
@@ -42,6 +58,14 @@ class ScrapingLib(object):
     else:
       markup = self.get_markup_by_requests(url)
     return self.create_soup(markup)
+
+  def get_latest_sorp(self):
+    source = self.driver.page_source
+    markup =  source.encode("utf-8")
+    return self.create_soup(markup)
+
+class ScrapingLibException(BaseException):
+  pass
 
 ## test
 if __name__ == '__main__':

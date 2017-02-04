@@ -6,23 +6,28 @@ import re
 class ReutersTheWireScraper(object):
   LIST_URL = "http://jp.reuters.com/theWire"
   ARTICLE = "article"
-  ARTICLE_URL = "http://jp.reuters.com/article/"
   RE_ARTICLE = re.compile(ARTICLE)
   LOG_PATH = "/tmp/ReutersTheWireScraper.log"
   ARTICLE_PARAM = "?sp=true"
   
   def __init__(self, log_path):
       self.scraping = ScrapingLib(log_path)
-  
-  @classmethod
-  def get_target_url(cls, article_url):
-      return cls.BASE_URL.format(article_url)
+      self.scraping.get(self.LIST_URL)
+      
+  def get_sorp(self):
+    return self.scraping.get_latest_sorp()
   
   def get_url_list(self):
-    href_list = self.scraping.get_sorp(self.LIST_URL, ScrapingLib.TYPE_DRIVER).find_all("a", href=self.RE_ARTICLE)
+    href_list = self.get_sorp().find_all("a", href=self.RE_ARTICLE)
     return map(lambda x: x.get("href"), href_list)
-  
+
+  def load_more_content(self):
+    self.scraping.clickByClassName("more-load")
+
 ## test
 if __name__ == '__main__':
   scraper = ReutersTheWireScraper(ReutersTheWireScraper.LOG_PATH)
+  scraper.load_more_content()
+  scraper.load_more_content()
   print scraper.get_url_list()
+  print len(scraper.get_url_list())
