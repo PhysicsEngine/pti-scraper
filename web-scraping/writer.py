@@ -14,7 +14,7 @@ class Writer(object):
         user = os.environ.get('PTI_USER')
         password = os.environ.get('PTI_PASSWORD')
         host = os.environ.get('PTI_HOST')
-        db = os.environ.get('PTI_DB')
+        database = os.environ.get('PTI_DB')
 
         self.conn = pymysql.connect(user=user, password=password, host=host, database=database)
 
