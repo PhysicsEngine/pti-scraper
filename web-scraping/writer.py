@@ -18,6 +18,7 @@ class Writer(object):
         host = os.environ.get('PTI_HOST')
         database = os.environ.get('PTI_DB')
         conn = pymysql.connect(user=user, password=password, host=host, database=database)
+        conn.encoding = "utf-8"
         self.uploader = DbUploader(conn)
 
     def write_articles_file(self, content):
@@ -26,6 +27,7 @@ class Writer(object):
             return False
 
         self._write_wrticles_to_file(articles_id, content)
+        return True
 
     def _write_wrticles_to_file(self, id, content):
         path = self.SAVE_PATH.format(id)

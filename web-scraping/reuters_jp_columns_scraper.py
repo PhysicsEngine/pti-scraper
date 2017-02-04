@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from scraping_lib import ScrapingLib
 import re
+
 class ReutersJpColummsScraper(object):
   BASE_URL = "http://jp.reuters.com/news/archive/jp_column?view=page&page={0}"
   LOG_PATH = "/tmp/ReutersJpColummsScraper.log"
