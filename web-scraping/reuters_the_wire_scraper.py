@@ -19,7 +19,8 @@ class ReutersTheWireScraper(object):
       return cls.BASE_URL.format(article_url)
   
   def get_url_list(self):
-    return self.scraping.get_sorp(self.LIST_URL, ScrapingLib.TYPE_DRIVER).find_all("a")
+    href_list = self.scraping.get_sorp(self.LIST_URL, ScrapingLib.TYPE_DRIVER).find_all("a", href=self.RE_ARTICLE)
+    return map(lambda x: x.get("href"), href_list)
   
 ## test
 if __name__ == '__main__':
