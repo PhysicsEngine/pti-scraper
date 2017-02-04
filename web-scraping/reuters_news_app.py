@@ -18,5 +18,5 @@ if __name__ == '__main__':
             full_url = ReutersTheWireScraper.get_full_url(url)
             soup = lib.get_sorp(full_url)
             content = html2content.parse(full_url, soup)
-            writer.write(content)
+            writer.write_articles_file(content)
             scraper.load_more_content()
