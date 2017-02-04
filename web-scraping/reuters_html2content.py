@@ -12,11 +12,22 @@ from datetime import datetime
 class ReutersHtml2Content(object):
     def parse(self, full_url, soup):
         return Content(
-                "1",
-                "\n".join(map(lambda x: x.text, soup.find_all("p"))),
+                self.get_author_name(soup),
+                self.get_article_text(soup),
                 full_url,
                 self.parse_time(self.get_revision_date(soup)),
                 soup.title.string)
+
+    def get_author_name(self, soup):
+        for tag in soup.find_all("meta"):
+            if tag.get("name", None) == "DCSext.rAuthor":
+                return tag.get("content", None)
+        return "unknown"
+
+    def get_article_text(self, soup):
+        paragraphs = []
+        article_text = soup.find("span", id="articleText")
+        return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
 
     def get_revision_date(self, soup):
         for tag in soup.find_all("meta"):
