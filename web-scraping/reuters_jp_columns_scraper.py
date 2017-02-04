@@ -19,7 +19,7 @@ class ReutersJpColummsScraper(object):
     print url
     return url
 
-  def get_sorp(self, page):
+  def get_soup(self, page):
     url = self.get_target_url(page)
     return self.scraping.get_sorp(url, ScrapingLib.TYPE_REQUESTS)
 

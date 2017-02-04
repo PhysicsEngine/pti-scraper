@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from reuters_the_wire_scraper import ReutersTheWireScraper
+from reuters_jp_columns_scraper import ReutersJpColummsScraper
 from reuters_html2content import ReutersHtml2Content
 from scraping_lib import ScrapingLib
 from writer import Writer
@@ -13,7 +13,7 @@ if __name__ == '__main__':
   writer = Writer()
   page = 1
   while True:
-    sorp = scraper.get_sorp(page)
-    content = html2content.parse(full_url, soup)
+    soup = scraper.get_soup(page)
+    content = html2content.parse(scraper.get_target_url(page), soup)
     writer.write(content)
-
+    page += 1
