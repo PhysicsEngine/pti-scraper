@@ -27,7 +27,11 @@ class ReutersHtml2Content(object):
     def get_article_text(self, soup):
         paragraphs = []
         article_text = soup.find("span", id="articleText")
-        return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
+        try:
+          return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
+        except AttributeError:
+          print article_text
+          return article_text
 
     def get_revision_date(self, soup):
         for tag in soup.find_all("meta"):

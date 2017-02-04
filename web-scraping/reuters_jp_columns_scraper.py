@@ -8,22 +8,34 @@ class ReutersJpColummsScraper(object):
   LOG_PATH = "/tmp/ReutersJpColummsScraper.log"
   ARTICLE = "article"
   RE_ARTICLE = re.compile(ARTICLE)
-
+  DOMAIN = "http://jp.reuters.com"
 
   def __init__(self, log_path):
     self.scraping = ScrapingLib(log_path)
+    self.page = 1
 
-  @classmethod
-  def get_target_url(cls, page):
-    url = cls.BASE_URL.format(page)
+  def get_target_url(self):
+    url = self.BASE_URL.format(self.page)
     print url
     return url
 
-  def get_soup(self, page):
-    url = self.get_target_url(page)
+  def get_soup(self, url):
     return self.scraping.get_sorp(url, ScrapingLib.TYPE_REQUESTS)
+
+  def get_url_list(self):
+    href_list = self.get_soup(self.get_target_url()).find_all("a", href=self.RE_ARTICLE)
+    return map(lambda x: x.get("href"), href_list)
+
+  def load_more_content(self):
+    self.page += 1
+
+  @classmethod
+  def get_full_url(cls, article_path):
+    return cls.DOMAIN + article_path
+
+
 
 ## test
 if __name__ == '__main__':
   scraper = ReutersJpColummsScraper(ReutersJpColummsScraper.LOG_PATH)
-  print scraper.get_sorp(2)
+  print scraper.get_url_list()

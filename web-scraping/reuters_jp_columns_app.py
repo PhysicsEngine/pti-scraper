@@ -13,7 +13,9 @@ if __name__ == '__main__':
   writer = Writer()
   page = 1
   while True:
-    soup = scraper.get_soup(page)
-    content = html2content.parse(scraper.get_target_url(page), soup)
-    writer.write(content)
-    page += 1
+    for url in scraper.get_url_list():
+      full_url = ReutersJpColummsScraper.get_full_url(url)
+      soup = scraper.get_soup(full_url)
+      content = html2content.parse(full_url, soup)
+      writer.write_articles_file(content)
+      page += 1
