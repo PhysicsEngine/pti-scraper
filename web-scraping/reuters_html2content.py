@@ -6,15 +6,14 @@ from selenium import webdriver
 import requests
 import os
 
-class ReuterHtml2Content(object):
+class ReutersHtml2Content(object):
     def parse(self, soup):
-        return map(lambda x: x.text, soup.find_all("p"))
+        return "\n".join(map(lambda x: x.text, soup.find_all("p")))
 
 ## test
 if __name__ == '__main__':
     scraper = ScrapingLib()
     html2content = ReuterHtml2Content()
-    soup = scraper.get_sorp("http://jp.reuters.com/article/idJP2017020301002019?il=0");
-    for a in html2content.parse(soup):
-        print a
+    soup = scraper.get_sorp("http://jp.reuters.com/article/idJP2017020301002019?sp=true");
+    print html2content.parse(soup)
 
