@@ -21,6 +21,9 @@ class Writer(object):
         self.uploader = DbUploader(conn)
 
     def write_articles_file(self, content):
+        content_id = self.uploader.select_articles_articles_by_url(content.url)
+        if content_id is not None:
+            return False
         articles_id = self.uploader.insert_articles_articles(content)
         if articles_id is None:
             return False
