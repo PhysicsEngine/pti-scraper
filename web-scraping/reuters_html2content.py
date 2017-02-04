@@ -12,7 +12,7 @@ from datetime import datetime
 class ReutersHtml2Content(object):
     def parse(self, full_url, soup):
         return Content(
-                "1",
+                self.get_author_name(soup),
                 self.get_article_text(soup),
                 full_url,
                 self.parse_time(self.get_revision_date(soup)),
