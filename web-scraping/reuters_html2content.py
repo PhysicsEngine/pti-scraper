@@ -35,7 +35,7 @@ class ReutersHtml2Content(object):
         try:
           return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
         except AttributeError:
-          print article_text
+          #print article_text
           return article_text
 
     def get_revision_date(self, soup):
@@ -59,5 +59,5 @@ if __name__ == '__main__':
     html2content = ReutersHtml2Content()
     url = "http://jp.reuters.com/article/idJP2017020301002019?sp=true"
     soup = scraper.get_sorp(url);
-    print html2content.parse(url, soup)
+    #print html2content.parse(url, soup)
 

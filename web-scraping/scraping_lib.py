@@ -45,7 +45,7 @@ class ScrapingLib(object):
     return self.create_soup(markup)
 
   def get_markup_by_driver(self, url):
-    print url
+    #print url
     self.driver.get(url)
     source = self.driver.page_source
     return source.encode("utf-8")
@@ -69,4 +69,4 @@ class ScrapingLibException(BaseException):
 ## test
 if __name__ == '__main__':
   scraper = ScrapingLib()
-  print scraper.get_sorp("http://sumodb.sumogames.de/Results_text.aspx?b=201509&d=9")
+  #print scraper.get_sorp("http://sumodb.sumogames.de/Results_text.aspx?b=201509&d=9")

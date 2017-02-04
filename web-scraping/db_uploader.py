@@ -23,7 +23,7 @@ class DbUploader(object):
     with self.conn.cursor() as cur:
       name_hash = self.name_hash(name)
       sql = "SELECT id FROM articles_authors where name_hash = '{0}'".format(name_hash)
-      print sql
+      #print sql
       cur.execute(sql)
       return cur.fetchone()
 

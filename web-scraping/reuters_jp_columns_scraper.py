@@ -16,7 +16,7 @@ class ReutersJpColummsScraper(object):
 
   def get_target_url(self):
     url = self.BASE_URL.format(self.page)
-    print url
+    #print url
     return url
 
   def get_soup(self, url):
@@ -38,4 +38,4 @@ class ReutersJpColummsScraper(object):
 ## test
 if __name__ == '__main__':
   scraper = ReutersJpColummsScraper(ReutersJpColummsScraper.LOG_PATH)
-  print scraper.get_url_list()
+  #print scraper.get_url_list()

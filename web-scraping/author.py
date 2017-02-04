@@ -19,7 +19,7 @@ class Author(object):
 
   def _set_author_id(self):
     author_id = self.db_uploader.select_articles_authors(self.name)
-    print author_id
+    #print author_id
     if author_id is None:
       return self.db_uploader.insert_articles_authors(self.name)
 
