@@ -47,7 +47,6 @@ class ScrapingLib(object):
   def get_markup_by_driver(self, url):
     print url
     self.driver.get(url)
-    print self.driver.current_url
     source = self.driver.page_source
     return source.encode("utf-8")
 
