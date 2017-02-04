@@ -8,17 +8,22 @@ import requests
 import os
 import pytz
 from datetime import datetime
+from author import Author
 
 class ToyokeizaiHtml2Content(object):
+  def __init__(self, conn):
+      self.conn = conn
+
   def parse(self, full_url, soup):
+      author = Author(self.get_author_name(soup), self.conn)
       return Content(
-              self.get_author(soup),
+              author.get_author_id(),
               "\n".join(map(lambda x: x.get_text(), soup.find_all("p"))),
               full_url,
               self.parse_time(self.get_revision_date(soup).split("+")[0]),
               soup.title.string)
 
-  def get_author(self, soup):
+  def get_author_name(self, soup):
     for tag in soup.find_all("meta"):
       if tag.get("name", None) == "cXenseParse:toy-articleauthor":
         print tag.get("content", None)

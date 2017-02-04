@@ -21,6 +21,7 @@ class DbUploader(object):
   def select_articles_authors(self, name):
     with self.conn.cursor() as cur:
       sql = "SELECT id FROM articles_authors where name = '{0}'".format(name.encode('utf-8'))
+      print sql
       cur.execute(sql)
       return cur.fetchone()
 
