@@ -15,7 +15,6 @@ class DbUploader(object):
       sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
       cur.execute(sql, (content.pub_date, content.url, content.author_id, content.title))
       articles_id = cur.lastrowid
-      print ("article id={0}, author id={1} url={2}".format(articles_id, content.author_id, content.url))
       self.conn.commit()
   
     return articles_id
