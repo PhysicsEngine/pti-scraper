@@ -19,6 +19,4 @@ if __name__ == '__main__':
             soup = lib.get_sorp(full_url)
             content = html2content.parse(full_url, soup)
             writer.write(content)
-
-        # TODO: まずは最新のみ.
-        break
+            scraper.load_more_content()
