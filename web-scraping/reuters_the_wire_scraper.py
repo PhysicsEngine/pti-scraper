@@ -9,6 +9,7 @@ class ReutersTheWireScraper(object):
   RE_ARTICLE = re.compile(ARTICLE)
   LOG_PATH = "/tmp/ReutersTheWireScraper.log"
   ARTICLE_PARAM = "?sp=true"
+  DOMAIN = "http://jp.reuters.com"
   
   def __init__(self, log_path):
       self.scraping = ScrapingLib(log_path)
@@ -23,6 +24,10 @@ class ReutersTheWireScraper(object):
 
   def load_more_content(self):
     self.scraping.clickByClassName("more-load")
+
+  @classmethod
+  def get_full_url(cls, article_path):
+    return cls.DOMAIN + article_path
 
 ## test
 if __name__ == '__main__':
