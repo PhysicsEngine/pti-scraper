@@ -26,7 +26,7 @@ class ReutersHtml2Content(object):
 
     def get_article_text(self, soup):
         paragraphs = []
-        article_text = soup.find_all("span", id="articleText")
+        article_text = soup.find("span", id="articleText")
         return "\n".join(map(lambda x: x.text, article_text.find_all("p")))
 
     def get_revision_date(self, soup):
