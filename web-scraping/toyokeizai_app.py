@@ -24,4 +24,4 @@ if __name__ == '__main__':
             content = html2content.parse(full_url, soup)
             #writer.replace_author(content)
             writer.write_articles_file(content)
-        page += 1
+        scraper.load_more_content()  #page += 1
