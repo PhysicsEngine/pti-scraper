@@ -5,6 +5,8 @@ from reuters_html2content import ReutersHtml2Content
 from scraping_lib import ScrapingLib
 from writer import Writer
 
+# Usage:
+# $ PTI_HOST=153.126.154.182 PTI_USER=pti PTI_PASSWORD=gussan_gologo13 PTI_DB=pti python2 app.py
 if __name__ == '__main__':
     scraper = ReutersTheWireScraper(ReutersTheWireScraper.LOG_PATH)
     lib = ScrapingLib()
