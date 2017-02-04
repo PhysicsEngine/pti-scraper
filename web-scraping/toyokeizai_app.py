@@ -4,6 +4,7 @@ from toyokeizai_html2content import ToyokeizaiHtml2Content
 from toyokeizai_marketwatcher import ToyokeizaiMarketWatcher
 from scraping_lib import ScrapingLib
 from writer import Writer
+from db_connect import DbConnect
 import sys
 
 # Usage:
@@ -12,7 +13,8 @@ if __name__ == '__main__':
     scraper = ToyokeizaiMarketWatcher(ToyokeizaiMarketWatcher.LOG_PATH)
     lib = ScrapingLib()
     html2content = ToyokeizaiHtml2Content()
-    writer = Writer()
+    conn = DbConnect()
+    writer = Writer(conn.get())
 
     page = 1
     while True:
