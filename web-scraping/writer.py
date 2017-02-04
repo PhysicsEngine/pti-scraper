@@ -3,6 +3,7 @@
 import os
 import pymysql.cursors
 import io
+from db_uploader import DbUploader 
 
 class Writer(object):
 
@@ -16,30 +17,17 @@ class Writer(object):
         password = os.environ.get('PTI_PASSWORD')
         host = os.environ.get('PTI_HOST')
         database = os.environ.get('PTI_DB')
+        conn = pymysql.connect(user=user, password=password, host=host, database=database)
+        self.uploader = DbUploader(conn)
 
-        self.conn = pymysql.connect(user=user, password=password, host=host, database=database)
-
-    def write(self, content):
-        id = self._writeToDatabase(content)
-        if id is None:
+    def write_articles_file(self, content):
+        articles_id = self.uploader.insert_articles_articles(content)
+        if articles_id is None:
             return False
 
-        self._writeToFile(id, content)
+        self._write_wrticles_to_file(articles_id, content)
 
-    def _writeToDatabase(self, content):
-        ret = None
-        with self.conn.cursor() as cur:
-            cur.execute('SET NAMES utf8;')
-            cur.execute('SET CHARACTER SET utf8;')
-            cur.execute('SET character_set_connection=utf8;')
-            sql = "INSERT INTO articles_articles(pub_date, url, author_id, title) VALUES (%s, %s, %s, %s)"
-            r = cur.execute(sql, (content.pub_date, content.url, content.author_id, "dummy title"))
-            ret = cur.lastrowid
-            self.conn.commit()
-
-        return ret
-
-    def _writeToFile(self, id, content):
+    def _write_wrticles_to_file(self, id, content):
         path = self.SAVE_PATH.format(id)
         with io.FileIO(path, "w") as file:
             file.write(content.text.encode('utf-8'))
