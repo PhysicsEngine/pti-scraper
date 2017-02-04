@@ -7,7 +7,7 @@ class ToyokeizaiMarketWatcher(object):
   LOG_PATH = "/tmp/ToyokeizaiMarketWatcher.log"
   ARTICLE = "articles/-/"
   RE_ARTICLE = re.compile(ARTICLE)
-  DOMEIN = "http://toyokeizai.net{0}"
+  DOMEIN = "http://toyokeizai.net{0}?page=0"
 
   def __init__(self, log_path):
     self.scraping = ScrapingLib(log_path)
