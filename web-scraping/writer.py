@@ -35,9 +35,7 @@ class Writer(object):
             file.write(content.text.encode('utf-8'))
 
     def replace_author(self, content):
-        print "before content.author_id: ", content.author_id
         author_id = self.uploader.select_articles_authors(content.author_id)
         if author_id is None:
             author_id = self.uploader.insert_articles_authors(content.author_id)
         content.author_id = author_id
-        print "after content.author_id: ", content.author_id
